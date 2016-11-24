@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RouletteCalc.Domain.ValueObjects;
+using RouletteCalc.Utilities;
 using RouletteCalc.Utilities.Math;
 
 namespace RouletteCalc.Application
@@ -49,7 +50,7 @@ namespace RouletteCalc.Application
 
         private static GameState GetStateAfterLose(EngineConfig config, GameState baseSate)
         {
-            var mewBid = baseSate.Bid*config.MultiplierProgression;
+            var mewBid = config.ProgressionModifierType.Calculate(baseSate.Bid, config.ProgressionModifier);
 
             return new GameState()
             {
@@ -62,7 +63,7 @@ namespace RouletteCalc.Application
 
         private static GameState GetStateAfterWin(EngineConfig config, GameState baseSate)
         {
-            var reward = baseSate.Bid * config.MultiplierWinning;
+            var reward = config.WinningModifierType.Calculate(baseSate.Bid, config.WinningModifier);
             var newBalance = baseSate.Balance - baseSate.Bid + reward;
 
             return new GameState()

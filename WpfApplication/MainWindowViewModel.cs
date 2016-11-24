@@ -17,18 +17,6 @@ namespace WpfApplication
 
         public IList<GameState> GridDataSource { get; set; }
 
-        public decimal BaseBid
-        {
-            get { return Config.BaseBid; }
-            set { Config.BaseBid = value; }
-        }
-
-        public decimal BaseBalance
-        {
-            get { return Config.BaseBalance; }
-            set { Config.BaseBalance = value; }
-        }
-
         public int NumberOfFields
         {
             get { return Config.NumberOfFields; }
@@ -67,24 +55,6 @@ namespace WpfApplication
                 Config.NumberOfLosingFields = value;
                 _mainWindow.RefreshNumberOfFields();
             }
-        }
-
-        public int NumberOfGames
-        {
-            get { return Config.NumberOfGames; }
-            set { Config.NumberOfGames = value; }
-        }
-
-        public decimal MultiplierWinning
-        {
-            get { return Config.MultiplierWinning; }
-            set { Config.MultiplierWinning = value; }
-        }
-
-        public decimal MultiplierProgression
-        {
-            get { return Config.MultiplierProgression; }
-            set { Config.MultiplierProgression = value; }
         }
     }
 }

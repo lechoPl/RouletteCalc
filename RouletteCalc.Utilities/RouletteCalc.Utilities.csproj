@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\MathOp.cs" />
+    <Compile Include="MathOpHelper.cs" />
     <Compile Include="Math\Fraction.cs" />
     <Compile Include="Math\Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

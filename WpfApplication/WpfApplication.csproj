@@ -101,6 +101,10 @@
       <Project>{D8F94F31-6249-4C92-8FD2-F5B4E7E18661}</Project>
       <Name>RouletteCalc.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RouletteCalc.Utilities\RouletteCalc.Utilities.csproj">
+      <Project>{60ed7c66-e02f-4082-84f7-74fc4e3edaf1}</Project>
+      <Name>RouletteCalc.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RouletteCalc\RouletteCalc.Domain.csproj">
       <Project>{DCAB332C-6124-4B77-BBF0-8145604D89A8}</Project>
       <Name>RouletteCalc.Domain</Name>

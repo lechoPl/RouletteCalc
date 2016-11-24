@@ -1,4 +1,6 @@
-﻿namespace RouletteCalc.Application
+﻿using RouletteCalc.Utilities.Enums;
+
+namespace RouletteCalc.Application
 {
     public class EngineConfig
     {
@@ -117,8 +119,12 @@
             }
         }
 
-        public virtual decimal MultiplierWinning { get; set; } = 2;
+        public virtual MathOp WinningModifierType { get; set; } = MathOp.Mult;
 
-        public virtual decimal MultiplierProgression { get; set; } = 2;
+        public virtual decimal WinningModifier { get; set; } = 2;
+
+        public virtual MathOp ProgressionModifierType { get; set; } = MathOp.Mult;
+
+        public virtual decimal ProgressionModifier { get; set; } = 2;
     }
 }
