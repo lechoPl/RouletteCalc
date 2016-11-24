@@ -44,6 +44,8 @@ namespace RouletteCalc.Application
                 Balance = config.BaseBalance,
                 Bid = config.BaseBid,
                 NumberOfPlayedGames = 0,
+                NumberOfDefeat = 0,
+                NumberOfWon = 0,
                 Probability = new Fraction(1, 1),
             };
         }
@@ -57,6 +59,8 @@ namespace RouletteCalc.Application
                 Balance = baseSate.Balance - baseSate.Bid,
                 Bid = mewBid,
                 NumberOfPlayedGames = baseSate.NumberOfPlayedGames + 1,
+                NumberOfDefeat = baseSate.NumberOfDefeat + 1,
+                NumberOfWon = baseSate.NumberOfWon,
                 Probability = baseSate.Probability * new Fraction(config.NumberOfLosingFields, config.NumberOfFields)
             };
         }
@@ -71,6 +75,8 @@ namespace RouletteCalc.Application
                 Balance = newBalance,
                 Bid = config.BaseBid,
                 NumberOfPlayedGames = baseSate.NumberOfPlayedGames + 1,
+                NumberOfDefeat = baseSate.NumberOfDefeat,
+                NumberOfWon = baseSate.NumberOfWon + 1,
                 Probability = baseSate.Probability * new Fraction(config.NumberOfWiningFields, config.NumberOfFields)
             };
         }

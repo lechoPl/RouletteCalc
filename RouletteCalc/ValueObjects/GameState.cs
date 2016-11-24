@@ -26,5 +26,15 @@ namespace RouletteCalc.Domain.ValueObjects
         /// Represents number of played games from start
         /// </summary>
         public virtual int NumberOfPlayedGames { get; set; }
+
+        /// <summary>
+        /// Represents number of won games from start
+        /// </summary>
+        public virtual int NumberOfWon { get; set; }
+
+        /// <summary>
+        /// Represents number of defeat games from start
+        /// </summary>
+        public virtual int NumberOfDefeat { get; set; }
     }
 }
