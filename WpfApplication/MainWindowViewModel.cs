@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Runtime.Serialization.Formatters;
 using RouletteCalc.Application;
 using RouletteCalc.Domain.ValueObjects;
 
@@ -15,130 +13,78 @@ namespace WpfApplication
             _mainWindow = mainWindow;
         }
 
-        public EngineConfig Config { get; private set; } = new EngineConfig();
+        public EngineConfig Config { get; } = new EngineConfig();
 
         public IList<GameState> GridDataSource { get; set; }
 
-        public string BaseBid
+        public decimal BaseBid
         {
-            get { return Config.BaseBid.ToString(CultureInfo.InvariantCulture); }
+            get { return Config.BaseBid; }
+            set { Config.BaseBid = value; }
+        }
+
+        public decimal BaseBalance
+        {
+            get { return Config.BaseBalance; }
+            set { Config.BaseBalance = value; }
+        }
+
+        public int NumberOfFields
+        {
+            get { return Config.NumberOfFields; }
             set
             {
-                decimal result;
-                if (decimal.TryParse(value, NumberStyles.Any, null, out result))
-                {
-                    Config.BaseBid = result;
-                }
+                if (Config.NumberOfFields == value)
+                    return;
+
+                Config.NumberOfFields = value;
+                _mainWindow.RefreshNumberOfWiningFields();
+                _mainWindow.RefreshNumberOfLosingFields();
             }
         }
 
-        public string BaseBalance
+        public int NumberOfWiningFields
         {
-            get { return Config.BaseBalance.ToString(CultureInfo.InvariantCulture); }
+            get { return Config.NumberOfWiningFields; }
             set
             {
-                decimal result;
-                if (decimal.TryParse(value, NumberStyles.Any, null, out result))
-                {
-                    Config.BaseBalance = result;
-                }
+                if (Config.NumberOfWiningFields == value)
+                    return;
+
+                Config.NumberOfWiningFields = value;
+                _mainWindow.RefreshNumberOfFields();
             }
         }
 
-        public string NumberOfFields
+        public int NumberOfLosingFields
         {
-            get { return Config.NumberOfFields.ToString(CultureInfo.InvariantCulture); }
+            get { return Config.NumberOfLosingFields; }
             set
             {
-                int result;
-                if (int.TryParse(value, NumberStyles.Any, null, out result))
-                {
-                    if(Config.NumberOfFields != result)
-                    {
-                        Config.NumberOfFields = result;
-                        _mainWindow.RefreshNumberOfWiningFields();
-                        _mainWindow.RefreshNumberOfLosingFields();
-                    }
-                }
+                if (Config.NumberOfLosingFields == value)
+                    return;
+
+                Config.NumberOfLosingFields = value;
+                _mainWindow.RefreshNumberOfFields();
             }
         }
 
-
-        public string NumberOfWiningFields
+        public int NumberOfGames
         {
-            get { return Config.NumberOfWiningFields.ToString(CultureInfo.InvariantCulture); }
-            set
-            {
-                int result;
-                if (int.TryParse(value, NumberStyles.Any, null, out result))
-                {
-                    if (Config.NumberOfWiningFields != result)
-                    {
-                        Config.NumberOfWiningFields = result;
-                        _mainWindow.RefreshNumberOfFields();
-                    }
-                }
-            }
+            get { return Config.NumberOfGames; }
+            set { Config.NumberOfGames = value; }
         }
 
-
-        public string NumberOfLosingFields
+        public decimal MultiplierWinning
         {
-            get { return Config.NumberOfLosingFields.ToString(CultureInfo.InvariantCulture); }
-            set
-            {
-                int result;
-                if (int.TryParse(value, NumberStyles.Any, null, out result))
-                {
-                    if (Config.NumberOfLosingFields != result)
-                    {
-                        Config.NumberOfLosingFields = result;
-                        _mainWindow.RefreshNumberOfFields();
-                    }
-                }
-            }
+            get { return Config.MultiplierWinning; }
+            set { Config.MultiplierWinning = value; }
         }
 
-        public string NumberOfGames
+        public decimal MultiplierProgression
         {
-            get { return Config.NumberOfGames.ToString(CultureInfo.InvariantCulture); }
-            set
-            {
-                int result;
-                if (int.TryParse(value, NumberStyles.Any, null, out result))
-                {
-                    if (Config.NumberOfGames != result)
-                    {
-                        Config.NumberOfGames = result;
-                    }
-                }
-            }
-        }
-
-        public string MultiplierWinning
-        {
-            get { return Config.MultiplierWinning.ToString(CultureInfo.InvariantCulture); }
-            set
-            {
-                decimal result;
-                if (decimal.TryParse(value, NumberStyles.Any, null, out result))
-                {
-                    Config.MultiplierWinning = result;
-                }
-            }
-        }
-
-        public string MultiplierProgression
-        {
-            get { return Config.MultiplierProgression.ToString(CultureInfo.InvariantCulture); }
-            set
-            {
-                decimal result;
-                if (decimal.TryParse(value, NumberStyles.Any, null, out result))
-                {
-                    Config.MultiplierProgression = result;
-                }
-            }
+            get { return Config.MultiplierProgression; }
+            set { Config.MultiplierProgression = value; }
         }
     }
 }

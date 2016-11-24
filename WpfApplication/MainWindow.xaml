@@ -6,37 +6,65 @@
         mc:Ignorable="d"
         Title="Roulette Calc" Height="586.5" Width="820.5">
     <Grid>
-
-        <GroupBox x:Name="NumberOfFieldsGroupBox" Header="Number of fields" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="164" Width="188">
+        <Grid.Resources>
+            <Style x:Key="SpinButton"  TargetType="Slider">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Slider">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="20"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="1"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBox Grid.RowSpan="3" Text="{Binding Value,Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Center" BorderThickness="1,1,0,1" TextAlignment="Right"/>
+                                <RepeatButton Grid.Column="1" Grid.Row="0" Command="Slider.IncreaseLarge">
+                                    <Path Fill="Black" Data="M0,1 L0.5,0 1,1z" Width="9" Height="5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </RepeatButton>
+                                <Rectangle Grid.Column="1" Grid.Row="1" Fill="{TemplateBinding BorderBrush}"/>
+                                <RepeatButton Grid.Column="1" Grid.Row="2" Command="Slider.DecreaseLarge">
+                                    <Path Fill="Black" Data="M0,0 L0.5,1 1,0z" Width="9" Height="5" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </RepeatButton>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+        <GroupBox x:Name="NumberOfFieldsGroupBox" Header="Number of fields" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="121" Width="188">
             <Grid>
-                <TextBlock x:Name="NumberOfFieldsTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Text="Total" Width="47"/>
-                <TextBox x:Name="NumberOfFieldsTextBox" HorizontalAlignment="Left" Height="23" Margin="-2,26,0,0" TextWrapping="Wrap" Text="{Binding NumberOfFields}" VerticalAlignment="Top" Width="168" PreviewTextInput="textBox_PreviewTextInput"/>
-                <TextBlock x:Name="NumberOfWiningFieldsTextBlock" HorizontalAlignment="Left" Margin="0,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.786,0.562" Width="42" Text="Win&#x9;" />
-                <TextBox x:Name="NumberOfWiningFieldsTextBox" HorizontalAlignment="Left" Height="23" Margin="0,69,0,0" TextWrapping="Wrap" Text="{Binding NumberOfWiningFields}" VerticalAlignment="Top" Width="166" PreviewTextInput="textBox_PreviewTextInput"/>
-                <TextBlock x:Name="NumberOfLosingFieldsTextBlock" HorizontalAlignment="Left" Margin="0,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.786,0.562" Width="42" ><Run Text="Lose"/><LineBreak/><Run/></TextBlock>
-                <TextBox x:Name="NumberOfLosingFieldsTextBox" HorizontalAlignment="Left" Height="24" Margin="0,112,0,0" TextWrapping="Wrap" Text="{Binding NumberOfLosingFields}" VerticalAlignment="Top" Width="166" PreviewTextInput="textBox_PreviewTextInput"/>
+                <TextBlock x:Name="NumberOfFieldsTextBlock" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Text="Total" Width="47" TextAlignment="Right"/>
+                <Slider x:Name="NumberOfFieldsSlider" HorizontalAlignment="Left" Height="23" Margin="62,10,0,0" Value="{Binding NumberOfFields}" VerticalAlignment="Top" Width="93" Style="{StaticResource SpinButton}" Maximum="200" Minimum="1" SmallChange="1" />
+                <TextBlock x:Name="NumberOfWiningFieldsTextBlock" HorizontalAlignment="Left" Margin="15,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.786,0.562" Width="42" TextAlignment="Right" Text="Win"/>
+                <Slider x:Name="NumberOfWiningFieldsSlider" HorizontalAlignment="Left" Height="23" Margin="62,38,0,0" Value="{Binding NumberOfWiningFields}" VerticalAlignment="Top" Width="93" Style="{StaticResource SpinButton}" Maximum="100" SmallChange="1" />
+                <TextBlock x:Name="NumberOfLosingFieldsTextBlock" HorizontalAlignment="Left" Margin="15,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.786,0.562" Width="42" Text="Lose" TextAlignment="Right"/>
+                <Slider x:Name="NumberOfLosingFieldsSlider" HorizontalAlignment="Left" Height="24" Margin="62,66,0,0" Value="{Binding NumberOfLosingFields}" VerticalAlignment="Top" Width="93" Style="{StaticResource SpinButton}" Maximum="100" Minimum="1" SmallChange="1" />
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="OtherGroupBox" Header="Other" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" Height="166" Width="188">
+        <GroupBox x:Name="OtherGroupBox" Header="Other" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Height="166" Width="188">
             <Grid>
                 <TextBlock x:Name="BaseBidTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Bid" />
-                <TextBox x:Name="BaseBidTextBox" HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" TextWrapping="Wrap" Text="{Binding BaseBid}" VerticalAlignment="Top" Width="166" PreviewTextInput="textBox_PreviewTextInput"/>
+                <Slider x:Name="BaseBidSlider" HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" Value="{Binding BaseBid}" VerticalAlignment="Top" Width="166" Style="{StaticResource SpinButton}" Maximum="1000"/>
                 <TextBlock x:Name="BaseBalanceTextBlock" HorizontalAlignment="Left" Margin="0,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.786,0.562" Text="Initial account balance"/>
-                <TextBox x:Name="BaseBalanceTextBox" HorizontalAlignment="Left" Height="23" Margin="0,70,0,0" TextWrapping="Wrap" Text="{Binding BaseBalance}" VerticalAlignment="Top" Width="166" PreviewTextInput="textBox_PreviewTextInput"/>
+                <Slider x:Name="BaseBalanceSlider" HorizontalAlignment="Left" Height="23" Margin="0,70,0,0" Value="{Binding BaseBalance}" VerticalAlignment="Top" Width="166" Style="{StaticResource SpinButton}" Maximum="3000" Minimum="-3000"/>
                 <TextBlock x:Name="NumberOfGamesTextBlock" HorizontalAlignment="Left" Margin="0,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.786,0.562" Text="Number of games"/>
-                <TextBox x:Name="NumberOfGamesTextBox" HorizontalAlignment="Left" Height="22" Margin="0,114,0,0" TextWrapping="Wrap" Text="{Binding NumberOfGames}" VerticalAlignment="Top" Width="166" PreviewTextInput="textBox_PreviewTextInput"/>
+                <Slider x:Name="NumberOfGamesSlider" HorizontalAlignment="Left" Height="22" Margin="0,114,0,0" Value="{Binding NumberOfGames}" VerticalAlignment="Top" Width="166" Style="{StaticResource SpinButton}" Minimum="1" Maximum="16"/>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="MultiplierGroupBox" Header="Multipliers" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Height="126" Width="188">
+        <GroupBox x:Name="MultiplierGroupBox" Header="Multipliers" HorizontalAlignment="Left" Margin="10,307,0,0" VerticalAlignment="Top" Height="126" Width="188">
             <Grid>
                 <TextBlock x:Name="MultiplierWinningTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Winning" Width="45"/>
-                <TextBox x:Name="MultiplierWinningTextBox" HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" TextWrapping="Wrap" Text="{Binding MultiplierWinning}" VerticalAlignment="Top" Width="166" PreviewTextInput="textBox_PreviewTextInput"/>
+                <Slider x:Name="MultiplierWinningSlider" HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" Value="{Binding MultiplierWinning}" VerticalAlignment="Top" Width="166" Style="{StaticResource SpinButton}" Minimum="1"/>
                 <TextBlock x:Name="MultiplierProgressionTextBlock" HorizontalAlignment="Left" Margin="0,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="9.786,0.562" Text="Progression"/>
-                <TextBox x:Name="MultiplierProgressionTextBox" HorizontalAlignment="Left" Height="23" Margin="0,70,0,0" TextWrapping="Wrap" Text="{Binding MultiplierProgression}" VerticalAlignment="Top" Width="166" PreviewTextInput="textBox_PreviewTextInput"/>
+                <Slider x:Name="MultiplierProgressionSlider" HorizontalAlignment="Left" Height="23" Margin="0,70,0,0" Value="{Binding MultiplierProgression}" VerticalAlignment="Top" Width="166" Style="{StaticResource SpinButton}" Minimum="1"/>
             </Grid>
         </GroupBox>
-        
-        <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="62,496,0,0" VerticalAlignment="Top" Width="76" Click="StartBtn_Click"/>
+
+        <Button x:Name="StartBtn" Content="Start" HorizontalAlignment="Left" Margin="63,450,0,0" VerticalAlignment="Top" Width="76" Click="StartBtn_Click"/>
 
         <DataGrid x:Name="ResultDataGrid" ItemsSource="{Binding GridDataSource, Mode=TwoWay}" IsReadOnly="True" Margin="207,19,10,10" RenderTransformOrigin="0.5,0.5" />
     </Grid>

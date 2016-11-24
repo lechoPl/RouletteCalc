@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RouletteCalc.Application
+﻿namespace RouletteCalc.Application
 {
     public class EngineConfig
     {
@@ -19,6 +17,7 @@ namespace RouletteCalc.Application
         public virtual decimal BaseBalance { get; set; }
 
         private readonly object _lockNOF = new object();
+
         private int _numberOfFields = 37;
         public virtual int NumberOfFields
         {
@@ -34,9 +33,16 @@ namespace RouletteCalc.Application
                     var diff = _numberOfFields - (_numberOfWiningFields + _numberOfLosingFields);
                     if (diff < 0)
                     {
-                        diff += _numberOfWiningFields; // ~~!!!~~ After this: diff <= 0
-                        _numberOfWiningFields = 0; // ~~!!!~~ diff <= 0  ----> NumberOfWiningFields = 0
-                        NumberOfLosingFields += diff;
+                        diff += _numberOfWiningFields;
+                        if (diff >= 0)
+                        {
+                            _numberOfWiningFields = diff;
+                        }
+                        else
+                        {
+                            _numberOfWiningFields = 0; // ~~!!!~~ diff <= 0  ----> NumberOfWiningFields = 0
+                            NumberOfLosingFields += diff;
+                        }
                     }
                     else
                     {
@@ -47,7 +53,8 @@ namespace RouletteCalc.Application
         }
 
         private readonly object _lockNOWF = new object();
-        private int _numberOfWiningFields = 17;
+
+        private int _numberOfWiningFields = 18;
         public virtual int NumberOfWiningFields
         {
             get { return _numberOfWiningFields; }
@@ -71,7 +78,8 @@ namespace RouletteCalc.Application
         }
 
         private readonly object _lockNOLF = new object();
-        private int _numberOfLosingFields = 18;
+
+        private int _numberOfLosingFields = 19;
         public virtual int NumberOfLosingFields
         {
             get { return _numberOfLosingFields; }
