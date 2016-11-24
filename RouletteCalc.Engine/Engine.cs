@@ -49,10 +49,12 @@ namespace RouletteCalc.Application
 
         private static GameState GetStateAfterLose(EngineConfig config, GameState baseSate)
         {
+            var mewBid = baseSate.Bid*config.MultiplierProgression;
+
             return new GameState()
             {
                 Balance = baseSate.Balance - baseSate.Bid,
-                Bid = baseSate.Bid * config.MultiplierProgression,
+                Bid = mewBid,
                 NumberOfPlayedGames = baseSate.NumberOfPlayedGames + 1,
                 Probability = baseSate.Probability * new Fraction(config.NumberOfLosingFields, config.NumberOfFields)
             };
@@ -60,9 +62,12 @@ namespace RouletteCalc.Application
 
         private static GameState GetStateAfterWin(EngineConfig config, GameState baseSate)
         {
+            var reward = baseSate.Bid * config.MultiplierWinning;
+            var newBalance = baseSate.Balance - baseSate.Bid + reward;
+
             return new GameState()
             {
-                Balance = baseSate.Balance + baseSate.Bid * config.MultiplierWinning,
+                Balance = newBalance,
                 Bid = config.BaseBid,
                 NumberOfPlayedGames = baseSate.NumberOfPlayedGames + 1,
                 Probability = baseSate.Probability * new Fraction(config.NumberOfWiningFields, config.NumberOfFields)
