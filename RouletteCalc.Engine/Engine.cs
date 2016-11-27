@@ -52,12 +52,12 @@ namespace RouletteCalc.Application
 
         private static GameState GetStateAfterLose(EngineConfig config, GameState baseSate)
         {
-            var mewBid = config.ProgressionModifierType.Calculate(baseSate.Bid, config.ProgressionModifier);
+            var newBid = config.ProgressionModifierType.Calculate(baseSate.Bid, config.ProgressionModifier);
 
             return new GameState()
             {
                 Balance = baseSate.Balance - baseSate.Bid,
-                Bid = mewBid,
+                Bid = newBid,
                 NumberOfPlayedGames = baseSate.NumberOfPlayedGames + 1,
                 NumberOfDefeat = baseSate.NumberOfDefeat + 1,
                 NumberOfWon = baseSate.NumberOfWon,

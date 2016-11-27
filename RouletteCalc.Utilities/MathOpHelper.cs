@@ -15,6 +15,9 @@ namespace RouletteCalc.Utilities
                 case MathOp.Mult:
                     return a*b;
 
+                case MathOp.BigMartingale:
+                    return a*b + 1;
+
                 default:
                     throw new NotImplementedException();
             }
